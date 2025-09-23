@@ -2,26 +2,37 @@
 <html lang="en">
 <head>
     <title>Document</title>
-    <script>
-        async function abc(){
-            let a=document.getElementById("inp1").value;
-            let b=document.getElementById("inp2").value;
-            let aa=document.getElementById("firstdiv");
-            try{
-                const ans=await fetch(`http://localhost:3000/?a=${a}&b=${b}`);
-                const finalans=await ans.json();
-                console.log(finalans);
-                aa.innerHTML=finalans.ans;
-            }catch(e){
-                aa.innerHTML="Something Bad occurs";
-            }
-        }
-    </script>
 </head>
 <body>
-    <input id="inp1" type="text" placeholder="first number"> <br> <br>
-    <input id="inp2" type="text" placeholder="second number"> <br> <br>
-    <button onclick="abc()">Calculate sum</button> <br> <br>
-    <div id="firstdiv"></div>
+    <label for="principal">Enter Principal</label>
+    <input type="text" id="inp1"> <br> <br>
+
+    <label for="Rate">Enter Rate</label>
+    <input type="text" id="inp2"> <br> <br>
+
+    <label for="Time">Enter Time</label>
+    <input type="text" id="inp3"> <br> <br>
+
+    <button onclick="abc()">Generate Data </button> <br> <br>
+
+    <div id="div1"></div>
+
+    <script>
+        async function abc(){
+            let pr=parseInt(document.getElementById("inp1").value);
+            let rt=parseInt(document.getElementById("inp2").value);
+            let tm=parseInt(document.getElementById("inp3").value);
+            try{
+                const response=await fetch(`http://localhost:3000/?principal=${pr}&rate=${rt}&time=${tm}`);
+                const data= await response.json();
+                document.getElementById("div1").innerHTML=`<b> Interest is ${data.interest} </b> <br> <br> <b> Total is ${data.total} </b> `
+            }
+            catch(e){
+                document.getElementById("div1").innerHTML="Something Bad Occurs"
+            }
+        }
+
+    </script>
+ 
 </body>
 </html>
