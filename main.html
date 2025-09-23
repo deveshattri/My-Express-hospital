@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <script>
+        async function abc(){
+            let a=document.getElementById("inp1").value;
+            let b=document.getElementById("inp2").value;
+            let aa=document.getElementById("firstdiv");
+            try{
+                const ans=await fetch(`http://localhost:3000/?a=${a}&b=${b}`);
+                const finalans=await ans.json();
+                console.log(finalans);
+                aa.innerHTML=finalans.ans;
+            }catch(e){
+                aa.innerHTML="Something Bad occurs";
+            }
+        }
+    </script>
+</head>
+<body>
+    <input id="inp1" type="text" placeholder="first number"> <br> <br>
+    <input id="inp2" type="text" placeholder="second number"> <br> <br>
+    <button onclick="abc()">Calculate sum</button> <br> <br>
+    <div id="firstdiv"></div>
+</body>
+</html>
