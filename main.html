@@ -4,20 +4,25 @@
     <title>Document</title>
 </head>
 <body>
-    <label for="principal">Enter Principal</label>
-    <input type="text" id="inp1"> <br> <br>
+    <label  for="principal">Enter Principal</label>
+    <input oninput="deb()" type="text" id="inp1"> <br> <br>
 
-    <label for="Rate">Enter Rate</label>
-    <input type="text" id="inp2"> <br> <br>
+    <label  for="Rate">Enter Rate</label>
+    <input oninput="deb()" type="text" id="inp2"> <br> <br>
 
     <label for="Time">Enter Time</label>
-    <input type="text" id="inp3"> <br> <br>
+    <input oninput="deb()" type="text" id="inp3"> <br> <br>
 
-    <button onclick="abc()">Generate Data </button> <br> <br>
+    <!-- <button onclick="abc()">Generate Data </button> <br> <br> -->
 
     <div id="div1"></div>
 
     <script>
+        let token;
+        function deb(){
+            clearTimeout(token);
+            token=setTimeout(abc,2000);
+        }
         async function abc(){
             let pr=parseInt(document.getElementById("inp1").value);
             let rt=parseInt(document.getElementById("inp2").value);
