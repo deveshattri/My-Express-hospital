@@ -1,43 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Doing  Everything</title>
+    <title>Doing Everything</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: #ffffff;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0056b3;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(50% - 22px);
+        }
+
+        /* Make result text stand out */
+        #counter, #randomNumber, #result, #greeting {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to My Website</h1>
     
-    <h2>About Me</h2>
-    <p>This is a simple website built with HTML and JavaScript.</p>
+    <div class="container">
+        <h2>About Me</h2>
+        <p>This is a simple website built with HTML and JavaScript.</p>
+    </div>
     
-    <h2>Interactive Features</h2>
+    <div class="container">
+        <h2>Interactive Features</h2>
+        
+        <h3>Click Counter</h3>
+        <p>Count: <span id="counter">0</span></p>
+        <button onclick="incrementCounter()">Click Me!</button>
+        <button onclick="resetCounter()">Reset</button>
+    </div>
+
+    <div class="container">
+        <h3>Name Greeting</h3>
+        <input type="text" id="nameInput" placeholder="Enter your name" style="width: calc(100% - 22px);">
+        <br>
+        <button onclick="showGreeting()">Say Hello</button>
+        <p id="greeting"></p>
+    </div>
     
-    <h3>Click Counter</h3>
-    <p>Count: <span id="counter">0</span></p>
-    <button onclick="incrementCounter()">Click Me!</button>
-    <button onclick="resetCounter()">Reset</button>
+    <div class="container">
+        <h3>Current Time</h3>
+        <p id="currentTime"></p>
+        <button onclick="showTime()">Show Time</button>
+    </div>
     
-    <h3>Name Greeting</h3>
-    <input type="text" id="nameInput" placeholder="Enter your name">
-    <button onclick="showGreeting()">Say Hello</button>
-    <p id="greeting"></p>
+    <div class="container">
+        <h3>Random Number Generator</h3>
+        <p>Random number: <span id="randomNumber">0</span></p>
+        <button onclick="generateRandomNumber()">Generate Number</button>
+    </div>
     
-    <h3>Current Time</h3>
-    <p id="currentTime"></p>
-    <button onclick="showTime()">Show Time</button>
-    
-    <h3>Random Number Generator</h3>
-    <p>Random number: <span id="randomNumber">0</span></p>
-    <button onclick="generateRandomNumber()">Generate Number</button>
-    
-    <h3>Simple Calculator</h3>
-    <input type="number" id="num1" placeholder="First number">
-    <input type="number" id="num2" placeholder="Second number">
-    <br><br>
-    <button onclick="calculate('add')">Add</button>
-    <button onclick="calculate('subtract')">Subtract</button>
-    <button onclick="calculate('multiply')">Multiply</button>
-    <button onclick="calculate('divide')">Divide</button>
-    <p>Result: <span id="result">0</span></p>
+    <div class="container">
+        <h3>Simple Calculator</h3>
+        <input type="number" id="num1" placeholder="First number">
+        <input type="number" id="num2" placeholder="Second number">
+        <br><br>
+        <button onclick="calculate('add')">Add</button>
+        <button onclick="calculate('subtract')">Subtract</button>
+        <button onclick="calculate('multiply')">Multiply</button>
+        <button onclick="calculate('divide')">Divide</button>
+        <p>Result: <span id="result">0</span></p>
+    </div>
 
     <script>
         let count = 0;
@@ -60,12 +124,13 @@
                 greetingElement.textContent = 'Hello, ' + name + '! Nice to meet you!';
             } else {
                 greetingElement.textContent = 'Please enter your name first.';
+                greetingElement.style.color = 'red';
             }
         }
         
         function showTime() {
             let now = new Date();
-            let timeString = now.toLocaleString();
+            let timeString = now.toLocaleTimeString(); 
             document.getElementById('currentTime').textContent = 'Current time: ' + timeString;
         }
         
@@ -77,10 +142,14 @@
         function calculate(operation) {
             let num1 = parseFloat(document.getElementById('num1').value);
             let num2 = parseFloat(document.getElementById('num2').value);
+            let resultElement = document.getElementById('result');
             let result = 0;
             
+            resultElement.style.color = '#28a745'; 
+
             if (isNaN(num1) || isNaN(num2)) {
-                document.getElementById('result').textContent = 'Please enter valid numbers';
+                resultElement.textContent = 'Please enter valid numbers';
+                resultElement.style.color = 'red';
                 return;
             }
             
@@ -96,14 +165,15 @@
                     break;
                 case 'divide':
                     if (num2 === 0) {
-                        document.getElementById('result').textContent = 'Cannot divide by zero';
+                        resultElement.textContent = 'Cannot divide by zero';
+                        resultElement.style.color = 'red';
                         return;
                     }
                     result = num1 / num2;
                     break;
             }
             
-            document.getElementById('result').textContent = result;
+            resultElement.textContent = result;
         }
         
         window.onload = function() {
